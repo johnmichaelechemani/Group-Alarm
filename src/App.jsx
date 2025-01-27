@@ -12,36 +12,36 @@ function App() {
     { id: 4, item: "Arlene Mccoy" },
     { id: 5, item: "Devon Webb" },
   ];
-  const generateId = () => {
-    return Math.max(...alarms.map((alarm) => alarm.id), 0) + 1;
-  };
 
-  const addAlarm = (
-    title,
-    description,
-    label,
-    selectedHours,
-    selectedMinutes,
-    type
-  ) => {
-    const newAlarm = {
-      id: generateId(),
-      title: title,
-      description: description,
-      enabled: false,
-      alarmsGroup: [
-        {
-          id: generateId(),
-          time: `${selectedHours.item}:${selectedMinutes.item}`,
-          description: label,
-          label: type.item,
-          enabled: false,
-        },
-      ],
-    };
-
+  const addAlarm = (newAlarm) => {
     setAlarms([...alarms, newAlarm]);
   };
+
+  // const addGroupAlarm = (
+  //   alarm,
+
+  // ) => {
+  //   const newAlarmGroup = {
+  //     id: generateId(),
+  //     time: `${selectedHours}:${selectedMinutes}`,
+  //     description: alarmLabel,
+  //     label: type,
+  //     enabled: false,
+  //   };
+
+  //   const updatedAlarms = alarms.map((a) => {
+  //     if (a.id === alarm.id) {
+  //       return {
+  //         ...a,
+  //         alarmsGroup: [...a.alarmsGroup, newAlarmGroup],
+  //       };
+  //     }
+  //     return a;
+  //   });
+  //   console.log(alarm, alarmLabel, selectedHours, selectedMinutes, type);
+
+  //   setAlarms(updatedAlarms);
+  // };
 
   const [selected, setSelected] = useState(people[0]);
   const [alarms, setAlarms] = useState([
@@ -61,20 +61,6 @@ function App() {
         {
           id: 2,
           time: "12:10",
-          description: "lunch",
-          label: "AM",
-          enabled: false,
-        },
-        {
-          id: 3,
-          time: "01:10",
-          description: "lunch",
-          label: "AM",
-          enabled: false,
-        },
-        {
-          id: 4,
-          time: "02:10",
           description: "lunch",
           label: "AM",
           enabled: false,
@@ -168,6 +154,7 @@ function App() {
                   title="Add Group Alarm"
                   group={true}
                   addAlarm={addAlarm}
+                  alarm={alarms}
                 />
               </div>
             </div>
@@ -183,7 +170,7 @@ function App() {
                     alarm.enabled ? "text-gray-300" : "text-gray-500"
                   }`}
                 >
-                  <h1>{alarm.title}</h1>
+                  <h1 className="capitalize">{alarm.title}</h1>
                   <div className="text-xs capitalize font-medium max-w-32 truncate">
                     {alarm.description}
                   </div>
@@ -193,7 +180,11 @@ function App() {
                     enabled={alarm.enabled}
                     setEnabled={() => toggleAllAlarm(alarm.id)}
                   />
-                  <MyModal title={`Add Alarm in  ${alarm.title}`} />
+                  <MyModal
+                    title={`Add Alarm in  ${alarm.title}`}
+                    alarm={alarm}
+                    //  addAlarm={addGroupAlarm}
+                  />
                 </div>
               </div>
               <div className=" max-h-52 overflow-y-auto pr-1">

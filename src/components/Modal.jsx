@@ -3,7 +3,6 @@ import {
   Dialog,
   DialogPanel,
   DialogTitle,
-  Description,
   Field,
   Input,
   Label,
@@ -12,14 +11,11 @@ import { useState } from "react";
 import clsx from "clsx";
 import { Icon } from "@iconify/react";
 import { Select } from "./Select";
-export const MyModal = ({ title, group, addAlarm }) => {
+export const MyModal = ({ alarm, title, group, addAlarm }) => {
   let [isOpen, setIsOpen] = useState(false);
 
-  const time = {
-    id: 1,
-    hours: "Hours",
-    minutes: "Minutes",
-    seconds: "Seconds",
+  const generateId = () => {
+    return Math.max(...alarm.map((alarm) => alarm.id), 0) + 1;
   };
 
   function open() {
@@ -27,22 +23,22 @@ export const MyModal = ({ title, group, addAlarm }) => {
   }
 
   function save() {
-    addAlarm(
-      groupTitle,
-      label,
-      alarmLabel,
-      selectedHours,
-      selectedMinutes,
-      selected
-    );
-    console.log(
-      groupTitle,
-      label,
-      alarmLabel,
-      selectedHours,
-      selectedMinutes,
-      selected
-    );
+    const newAlarm = {
+      id: generateId,
+      title: groupTitle,
+      description: groupLabel,
+      enabled: false,
+      alarmsGroup: [
+        {
+          id: generateId,
+          time: `${selectedHours.item}:${selectedMinutes.item}`,
+          description: alarmLabel,
+          label: selected.item,
+          enabled: false,
+        },
+      ],
+    };
+    addAlarm(newAlarm);
     setIsOpen(false);
   }
 
@@ -60,6 +56,12 @@ export const MyModal = ({ title, group, addAlarm }) => {
     }));
   };
 
+  const time = {
+    id: 1,
+    hours: "Hours",
+    minutes: "Minutes",
+    seconds: "Seconds",
+  };
   const hours = generateHours();
   const minutes = generateMinutes();
   const type = [
@@ -70,7 +72,7 @@ export const MyModal = ({ title, group, addAlarm }) => {
   const [selectedHours, setSelectedHours] = useState(hours[0]);
   const [selectedMinutes, setSelectedMinutes] = useState(minutes[0]);
   const [groupTitle, setTitle] = useState("");
-  const [label, setLabel] = useState("");
+  const [groupLabel, setGroupLabel] = useState("");
   const [alarmLabel, setAlarmLabel] = useState("");
 
   return (
@@ -122,8 +124,8 @@ export const MyModal = ({ title, group, addAlarm }) => {
                   </Label>
 
                   <Input
-                    value={label}
-                    onChange={(e) => setLabel(e.target.value)}
+                    value={groupLabel}
+                    onChange={(e) => setGroupLabel(e.target.value)}
                     className={clsx(
                       "my-2 block w-full rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-gray-300",
                       "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25"
