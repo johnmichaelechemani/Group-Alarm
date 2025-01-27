@@ -31,7 +31,7 @@ export const Select = ({ items, selectTitle, selected, setSelected }) => {
           anchor="bottom"
           transition
           className={clsx(
-            "w-[var(--button-width)] max-h-52  z-10 rounded-xl border border-white/5 bg-gray-400/5 backdrop-blur-2xl p-1 [--anchor-gap:var(--spacing-1)] focus:outline-none",
+            "w-[var(--button-width)] !max-h-52  z-10 rounded-xl border border-white/5 bg-gray-400/5 backdrop-blur-2xl p-1 [--anchor-gap:var(--spacing-1)] focus:outline-none",
             "transition duration-100 ease-in data-[leave]:data-[closed]:opacity-0"
           )}
         >
