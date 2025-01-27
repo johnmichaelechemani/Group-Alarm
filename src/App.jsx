@@ -120,7 +120,7 @@ function App() {
                   {" "}
                   Add Group Alarm
                 </p>
-                <MyModal />
+                <MyModal title="Add Group Alarm" group={true} />
               </div>
             </div>
           </div>
@@ -145,7 +145,7 @@ function App() {
                     enabled={alarm.enabled}
                     setEnabled={() => toggleAllAlarm(alarm.id)}
                   />
-                  <MyModal />
+                  <MyModal title={`Add Alarm in  ${alarm.title}`} />
                 </div>
               </div>
               <div className=" max-h-52 overflow-y-auto pr-1">

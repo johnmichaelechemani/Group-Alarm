@@ -1,7 +1,17 @@
-import { Button, Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
+import {
+  Button,
+  Dialog,
+  DialogPanel,
+  DialogTitle,
+  Description,
+  Field,
+  Input,
+  Label,
+} from "@headlessui/react";
 import { useState } from "react";
+import clsx from "clsx";
 import { Icon } from "@iconify/react";
-export const MyModal = () => {
+export const MyModal = ({ title, group }) => {
   let [isOpen, setIsOpen] = useState(false);
 
   function open() {
@@ -16,7 +26,7 @@ export const MyModal = () => {
     <>
       <Button
         onClick={open}
-        className="rounded-full border border-gray-500/20 bg-black/20 p-1 text-sm font-medium text-white focus:outline-none hover:bg-gray-500/20 data-[focus]:outline-1 data-[focus]:outline-white"
+        className="rounded-full border border-gray-500/20 bg-black/20 p-1 text-sm font-medium text-gray-300 focus:outline-none hover:bg-gray-500/20 data-[focus]:outline-1 data-[focus]:outline-white"
       >
         <Icon icon="material-symbols-light:add" width="20" height="20" />
       </Button>
@@ -35,17 +45,40 @@ export const MyModal = () => {
             >
               <DialogTitle
                 as="h3"
-                className="text-base/7 font-medium text-white"
+                className="text-lg/7 font-semibold text-gray-300"
               >
-                Payment successful
+                {title}
               </DialogTitle>
-              <p className="mt-2 text-sm/6 text-white/50">
-                Your payment has been successfully submitted. We’ve sent you an
-                email with all of the details of your order.
-              </p>
+              <div className="w-full">
+                {group && (
+                  <Field>
+                    <Label className="text-sm/6 font-medium text-gray-300">
+                      Title
+                    </Label>
+                    <Input
+                      className={clsx(
+                        "my-2 block w-full rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-gray-300",
+                        "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25"
+                      )}
+                    />
+                  </Field>
+                )}
+                <Field>
+                  <Label className="text-sm/6 font-medium text-gray-300">
+                    {group && <span>Group</span>} Description
+                  </Label>
+
+                  <Input
+                    className={clsx(
+                      "my-2 block w-full rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-gray-300",
+                      "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25"
+                    )}
+                  />
+                </Field>
+              </div>
               <div className="mt-4">
                 <Button
-                  className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
+                  className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-gray-300 shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
                   onClick={close}
                 >
                   Got it, thanks!
