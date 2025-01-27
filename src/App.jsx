@@ -9,6 +9,7 @@ function App() {
     {
       id: 1,
       title: "First Alarm",
+      description: "Day Shift",
       enabled: false,
       alarmsGroup: [
         {
@@ -44,6 +45,7 @@ function App() {
     {
       id: 2,
       title: "Second Alarm",
+      description: "Night Shift",
       enabled: false,
       alarmsGroup: [
         {
@@ -110,7 +112,7 @@ function App() {
           <div>
             {" "}
             <h1 className="text-xl text-gray-300 font-semibold">Group Alarm</h1>
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center ">
               <SelectRingTone />
 
               <div className="text-end">
@@ -128,13 +130,16 @@ function App() {
               className="border border-gray-500/20 p-2 rounded-lg my-2"
             >
               <div className="flex justify-between items-center pb-1">
-                <h1
+                <div
                   className={`text-sm font-semibold ${
                     alarm.enabled ? "text-gray-300" : "text-gray-500"
                   }`}
                 >
-                  {alarm.title}
-                </h1>
+                  <h1>{alarm.title}</h1>
+                  <div className="text-xs capitalize font-medium max-w-32 truncate">
+                    {alarm.description}
+                  </div>
+                </div>
                 <div className="flex justify-center items-center gap-2">
                   <MySwitch
                     enabled={alarm.enabled}
@@ -159,7 +164,7 @@ function App() {
                         {alarmGroup.time}{" "}
                         <span className="text-xs">{alarmGroup.label} </span>
                       </div>
-                      <div className="text-xs capitalize">
+                      <div className="text-xs capitalize max-w-32 truncate">
                         {alarmGroup.description}
                       </div>
                     </div>
