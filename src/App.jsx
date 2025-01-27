@@ -4,19 +4,18 @@ import { MyModal } from "./components/Modal";
 import { MySwitch } from "./components/Switch";
 
 function App() {
-  const [enabled, setEnabled] = useState(false);
   const [alarms, setAlarms] = useState([
     {
       id: 1,
       title: "First Alarm",
-      enabled: true,
+      enabled: false,
       alarmsGroup: [
         {
           id: 1,
           time: "04:50",
           description: "wake up",
           label: "PM",
-          enabled: true,
+          enabled: false,
         },
         {
           id: 2,
@@ -50,6 +49,38 @@ function App() {
     },
   ]);
 
+  const toggleAlarm = (id, groupId) => {
+    console.log(id, groupId);
+    setAlarms(
+      alarms.map((alarm) =>
+        alarm.id === id
+          ? {
+              ...alarm,
+              alarmsGroup: alarm.alarmsGroup.map((alarmGroup) =>
+                alarmGroup.id === groupId
+                  ? { ...alarmGroup, enabled: !alarmGroup.enabled }
+                  : alarmGroup
+              ),
+            }
+          : alarm
+      )
+    );
+    console.table(alarms);
+  };
+  const toggleAllAlarm = (id) => {
+    setAlarms(
+      alarms.map((alarm) =>
+        alarm.id === id
+          ? {
+              ...alarm,
+              enabled: !alarm.enabled,
+            }
+          : alarm
+      )
+    );
+    console.table(alarms);
+  };
+
   return (
     <>
       <div className="flex justify-center items-center h-screen text-white">
@@ -61,11 +92,18 @@ function App() {
               className="border border-gray-500/20 p-2 rounded-sm my-2"
             >
               <div className="flex justify-between items-center">
-                <h1 className="text-sm text-white font-semibold">
+                <h1
+                  className={`text-sm font-semibold ${
+                    alarm.enabled ? "text-white" : "text-gray-500"
+                  }`}
+                >
                   {alarm.title}
                 </h1>
                 <div className="flex justify-center items-center gap-2">
-                  <MySwitch />
+                  <MySwitch
+                    enabled={alarm.enabled}
+                    setEnabled={() => toggleAllAlarm(alarm.id)}
+                  />
                   <MyModal />
                 </div>
               </div>
@@ -73,7 +111,7 @@ function App() {
                 <div
                   key={index}
                   className={`my-2 py-2 px-2  rounded-lg text-xl border flex justify-between items-center ${
-                    enabled
+                    alarmGroup.enabled
                       ? "text-white border-gray-500/50 bg-blue-600/10"
                       : "text-gray-700 border-gray-500/10 bg-gray-800/20"
                   }`}
@@ -83,7 +121,10 @@ function App() {
                     {alarmGroup.time}{" "}
                     <span className="text-xs">{alarmGroup.label} </span>
                   </div>
-                  <MySwitch enabled={enabled} setEnabled={setEnabled} />
+                  <MySwitch
+                    enabled={alarmGroup.enabled}
+                    setEnabled={() => toggleAlarm(alarm.id, alarmGroup.id)}
+                  />
                 </div>
               ))}
             </div>
