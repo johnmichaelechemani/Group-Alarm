@@ -17,31 +17,9 @@ function App() {
     setAlarms([...alarms, newAlarm]);
   };
 
-  // const addGroupAlarm = (
-  //   alarm,
-
-  // ) => {
-  //   const newAlarmGroup = {
-  //     id: generateId(),
-  //     time: `${selectedHours}:${selectedMinutes}`,
-  //     description: alarmLabel,
-  //     label: type,
-  //     enabled: false,
-  //   };
-
-  //   const updatedAlarms = alarms.map((a) => {
-  //     if (a.id === alarm.id) {
-  //       return {
-  //         ...a,
-  //         alarmsGroup: [...a.alarmsGroup, newAlarmGroup],
-  //       };
-  //     }
-  //     return a;
-  //   });
-  //   console.log(alarm, alarmLabel, selectedHours, selectedMinutes, type);
-
-  //   setAlarms(updatedAlarms);
-  // };
+  const addGroupAlarm = (alarm) => {
+    setAlarms(alarm);
+  };
 
   const [selected, setSelected] = useState(people[0]);
   const [alarms, setAlarms] = useState([
@@ -183,7 +161,7 @@ function App() {
                   <MyModal
                     title={`Add Alarm in  ${alarm.title}`}
                     alarm={alarm}
-                    //  addAlarm={addGroupAlarm}
+                    addAlarm={addGroupAlarm}
                   />
                 </div>
               </div>

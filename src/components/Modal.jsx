@@ -13,6 +13,9 @@ import { Icon } from "@iconify/react";
 import { Select } from "./Select";
 export const MyModal = ({ alarm, title, group, addAlarm }) => {
   let [isOpen, setIsOpen] = useState(false);
+  const [selectedHours, setSelectedHours] = useState({ id: 1, item: "00" });
+  const [selectedMinutes, setSelectedMinutes] = useState({ id: 1, item: "00" });
+  const [type, setType] = useState({ id: 1, item: "AM" });
 
   const generateId = () => {
     return Math.max(...alarm.map((alarm) => alarm.id), 0) + 1;
@@ -20,6 +23,9 @@ export const MyModal = ({ alarm, title, group, addAlarm }) => {
 
   function open() {
     setIsOpen(true);
+  }
+  function close() {
+    setIsOpen(false);
   }
 
   function save() {
@@ -33,7 +39,7 @@ export const MyModal = ({ alarm, title, group, addAlarm }) => {
           id: generateId,
           time: `${selectedHours.item}:${selectedMinutes.item}`,
           description: alarmLabel,
-          label: selected.item,
+          label: type.item,
           enabled: false,
         },
       ],
@@ -64,13 +70,11 @@ export const MyModal = ({ alarm, title, group, addAlarm }) => {
   };
   const hours = generateHours();
   const minutes = generateMinutes();
-  const type = [
+  const types = [
     { id: 1, item: "AM" },
     { id: 2, item: "PM" },
   ];
-  const [selected, setSelected] = useState(type[0]);
-  const [selectedHours, setSelectedHours] = useState(hours[0]);
-  const [selectedMinutes, setSelectedMinutes] = useState(minutes[0]);
+
   const [groupTitle, setTitle] = useState("");
   const [groupLabel, setGroupLabel] = useState("");
   const [alarmLabel, setAlarmLabel] = useState("");
@@ -160,17 +164,23 @@ export const MyModal = ({ alarm, title, group, addAlarm }) => {
                     setSelected={setSelectedMinutes}
                   />
                   <Select
-                    items={type}
+                    items={types}
                     selectTitle={"Time"}
-                    selected={selected}
-                    setSelected={setSelected}
+                    selected={type}
+                    setSelected={setType}
                   />
                 </div>
               </div>
 
-              <div className="mt-4 flex justify-end items-center">
+              <div className="mt-4 flex justify-end gap-2 items-center">
                 <Button
-                  className="  gap-2 rounded-lg bg-gray-800/50 py-1.5 px-4 text-sm/6 font-semibold text-gray-300 shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600/50 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
+                  className="  gap-2 rounded-lg border border-gray-500/20 py-1.5 px-4 text-sm/6 font-semibold text-gray-300 focus:outline-none data-[hover]:bg-gray-600/10 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
+                  onClick={close}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  className="  gap-2 rounded-lg bg-gray-800/50 border border-gray-500/20 py-1.5 px-4 text-sm/6 font-semibold text-gray-300 focus:outline-none data-[hover]:bg-gray-600/50 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
                   onClick={save}
                 >
                   Save
