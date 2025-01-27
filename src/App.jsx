@@ -12,6 +12,36 @@ function App() {
     { id: 4, item: "Arlene Mccoy" },
     { id: 5, item: "Devon Webb" },
   ];
+  const generateId = () => {
+    return Math.max(...alarms.map((alarm) => alarm.id), 0) + 1;
+  };
+
+  const addAlarm = (
+    title,
+    description,
+    label,
+    selectedHours,
+    selectedMinutes,
+    type
+  ) => {
+    const newAlarm = {
+      id: generateId(),
+      title: title,
+      description: description,
+      enabled: false,
+      alarmsGroup: [
+        {
+          id: generateId(),
+          time: `${selectedHours.item}:${selectedMinutes.item}`,
+          description: label,
+          label: type.item,
+          enabled: false,
+        },
+      ],
+    };
+
+    setAlarms([...alarms, newAlarm]);
+  };
 
   const [selected, setSelected] = useState(people[0]);
   const [alarms, setAlarms] = useState([
@@ -134,7 +164,11 @@ function App() {
                   {" "}
                   Add Group Alarm
                 </p>
-                <MyModal title="Add Group Alarm" group={true} />
+                <MyModal
+                  title="Add Group Alarm"
+                  group={true}
+                  addAlarm={addAlarm}
+                />
               </div>
             </div>
           </div>

@@ -12,7 +12,7 @@ import { useState } from "react";
 import clsx from "clsx";
 import { Icon } from "@iconify/react";
 import { Select } from "./Select";
-export const MyModal = ({ title, group }) => {
+export const MyModal = ({ title, group, addAlarm }) => {
   let [isOpen, setIsOpen] = useState(false);
 
   const time = {
@@ -27,7 +27,22 @@ export const MyModal = ({ title, group }) => {
   }
 
   function save() {
-    console.log(selected, groupTitle, label);
+    addAlarm(
+      groupTitle,
+      label,
+      alarmLabel,
+      selectedHours,
+      selectedMinutes,
+      selected
+    );
+    console.log(
+      groupTitle,
+      label,
+      alarmLabel,
+      selectedHours,
+      selectedMinutes,
+      selected
+    );
     setIsOpen(false);
   }
 
@@ -51,9 +66,12 @@ export const MyModal = ({ title, group }) => {
     { id: 1, item: "AM" },
     { id: 2, item: "PM" },
   ];
-  const [selected, setSelected] = useState(hours[0]);
+  const [selected, setSelected] = useState(type[0]);
+  const [selectedHours, setSelectedHours] = useState(hours[0]);
+  const [selectedMinutes, setSelectedMinutes] = useState(minutes[0]);
   const [groupTitle, setTitle] = useState("");
   const [label, setLabel] = useState("");
+  const [alarmLabel, setAlarmLabel] = useState("");
 
   return (
     <>
@@ -112,18 +130,32 @@ export const MyModal = ({ title, group }) => {
                     )}
                   />
                 </Field>
+                <Field>
+                  <Label className="text-sm/6 font-medium text-gray-300">
+                    Alarm Label
+                  </Label>
+
+                  <Input
+                    value={alarmLabel}
+                    onChange={(e) => setAlarmLabel(e.target.value)}
+                    className={clsx(
+                      "my-2 block w-full rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-gray-300",
+                      "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25"
+                    )}
+                  />
+                </Field>
                 <div className="flex gap-4">
                   <Select
                     items={hours}
                     selectTitle={time.hours}
-                    selected={selected}
-                    setSelected={setSelected}
+                    selected={selectedHours}
+                    setSelected={setSelectedHours}
                   />
                   <Select
                     items={minutes}
                     selectTitle={time.minutes}
-                    selected={selected}
-                    setSelected={setSelected}
+                    selected={selectedMinutes}
+                    setSelected={setSelectedMinutes}
                   />
                   <Select
                     items={type}

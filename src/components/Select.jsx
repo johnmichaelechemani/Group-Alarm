@@ -8,7 +8,6 @@ import { Icon } from "@iconify/react";
 import clsx from "clsx";
 
 export const Select = ({ items, selectTitle, selected, setSelected }) => {
- 
   return (
     <div className="w-full my-2">
       <p className="text-xs text-gray-500 font-medium"> {selectTitle}</p>
