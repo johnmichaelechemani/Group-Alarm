@@ -2,6 +2,7 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import { MyModal } from "./components/Modal";
 import { MySwitch } from "./components/Switch";
+import { SelectRingTone } from "./components/Select";
 
 function App() {
   const [alarms, setAlarms] = useState([
@@ -104,9 +105,16 @@ function App() {
 
   return (
     <>
-      <div className="flex justify-center items-center h-screen text-gray-300">
+      <div className="flex justify-center items-center text-gray-300">
         <div className="sm:border border-gray-500/20 sm:p-5 p-1 rounded-sm min-w-full sm:min-w-96">
-          <h1 className="text-xl text-gray-300 font-semibold">Group Alarm</h1>
+          <div>
+            {" "}
+            <h1 className="text-xl text-gray-300 font-semibold">Group Alarm</h1>
+            <div className="flex justify-between items-center">
+              <SelectRingTone />
+              <MyModal />
+            </div>
+          </div>
           {alarms.map((alarm, index) => (
             <div
               key={index}
