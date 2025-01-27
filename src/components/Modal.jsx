@@ -14,6 +14,7 @@ import { Icon } from "@iconify/react";
 import { Select } from "./Select";
 export const MyModal = ({ title, group }) => {
   let [isOpen, setIsOpen] = useState(false);
+
   const time = {
     id: 1,
     hours: "Hours",
@@ -25,7 +26,8 @@ export const MyModal = ({ title, group }) => {
     setIsOpen(true);
   }
 
-  function close() {
+  function save() {
+    console.log(selected, groupTitle, label);
     setIsOpen(false);
   }
 
@@ -49,6 +51,9 @@ export const MyModal = ({ title, group }) => {
     { id: 1, item: "AM" },
     { id: 2, item: "PM" },
   ];
+  const [selected, setSelected] = useState(hours[0]);
+  const [groupTitle, setTitle] = useState("");
+  const [label, setLabel] = useState("");
 
   return (
     <>
@@ -84,6 +89,8 @@ export const MyModal = ({ title, group }) => {
                       Title
                     </Label>
                     <Input
+                      value={groupTitle}
+                      onChange={(e) => setTitle(e.target.value)}
                       className={clsx(
                         "my-2 block w-full rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-gray-300",
                         "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25"
@@ -97,6 +104,8 @@ export const MyModal = ({ title, group }) => {
                   </Label>
 
                   <Input
+                    value={label}
+                    onChange={(e) => setLabel(e.target.value)}
                     className={clsx(
                       "my-2 block w-full rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-gray-300",
                       "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25"
@@ -104,16 +113,31 @@ export const MyModal = ({ title, group }) => {
                   />
                 </Field>
                 <div className="flex gap-4">
-                  <Select items={hours} selectTitle={time.hours} />
-                  <Select items={minutes} selectTitle={time.minutes} />
-                  <Select items={type} selectTitle={"Time"} />
+                  <Select
+                    items={hours}
+                    selectTitle={time.hours}
+                    selected={selected}
+                    setSelected={setSelected}
+                  />
+                  <Select
+                    items={minutes}
+                    selectTitle={time.minutes}
+                    selected={selected}
+                    setSelected={setSelected}
+                  />
+                  <Select
+                    items={type}
+                    selectTitle={"Time"}
+                    selected={selected}
+                    setSelected={setSelected}
+                  />
                 </div>
               </div>
 
               <div className="mt-4 flex justify-end items-center">
                 <Button
                   className="  gap-2 rounded-lg bg-gray-800/50 py-1.5 px-4 text-sm/6 font-semibold text-gray-300 shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600/50 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
-                  onClick={close}
+                  onClick={save}
                 >
                   Save
                 </Button>

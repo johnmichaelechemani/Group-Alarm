@@ -6,11 +6,9 @@ import {
 } from "@headlessui/react";
 import { Icon } from "@iconify/react";
 import clsx from "clsx";
-import { useState } from "react";
 
-export const Select = ({ items, selectTitle }) => {
-  const [selected, setSelected] = useState(items[0]);
-
+export const Select = ({ items, selectTitle, selected, setSelected }) => {
+ 
   return (
     <div className="w-full my-2">
       <p className="text-xs text-gray-500 font-medium"> {selectTitle}</p>
