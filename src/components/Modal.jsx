@@ -13,12 +13,12 @@ import { Icon } from "@iconify/react";
 import { Select } from "./Select";
 export const MyModal = ({ alarm, title, group, addAlarm }) => {
   let [isOpen, setIsOpen] = useState(false);
-  const [selectedHours, setSelectedHours] = useState({ id: 1, item: "00" });
+  const [selectedHours, setSelectedHours] = useState({ id: 1, item: "01" });
   const [selectedMinutes, setSelectedMinutes] = useState({ id: 1, item: "00" });
   const [type, setType] = useState({ id: 1, item: "AM" });
-
+  const alarms = alarm;
   const generateId = () => {
-    return Math.max(...alarm.map((alarm) => alarm.id), 0) + 1;
+    return Math.max(...alarms.map((alarm) => alarm.id), 0) + 1;
   };
 
   function open() {
@@ -29,22 +29,34 @@ export const MyModal = ({ alarm, title, group, addAlarm }) => {
   }
 
   function save() {
-    const newAlarm = {
-      id: generateId,
-      title: groupTitle,
-      description: groupLabel,
-      enabled: false,
-      alarmsGroup: [
-        {
-          id: generateId,
-          time: `${selectedHours.item}:${selectedMinutes.item}`,
-          description: alarmLabel,
-          label: type.item,
-          enabled: false,
-        },
-      ],
-    };
-    addAlarm(newAlarm);
+    if (group) {
+      const newAlarm = {
+        id: generateId,
+        title: groupTitle,
+        description: groupLabel,
+        enabled: false,
+        alarmsGroup: [
+          {
+            id: generateId,
+            time: `${selectedHours.item}:${selectedMinutes.item}`,
+            description: alarmLabel,
+            label: type.item,
+            enabled: false,
+          },
+        ],
+      };
+      addAlarm(newAlarm);
+    } else {
+      const newAlarmGroup = {
+        id: generateId(),
+        time: `${selectedHours.item}:${selectedMinutes.item}`,
+        description: alarmLabel,
+        label: type.item,
+        enabled: false,
+      };
+
+      addAlarm(newAlarmGroup);
+    }
     setIsOpen(false);
   }
 

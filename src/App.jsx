@@ -18,7 +18,25 @@ function App() {
   };
 
   const addGroupAlarm = (alarm) => {
-    setAlarms(alarm);
+    const newAlarmGroup = {
+      id: generateId(),
+      time: `${selectedHours}:${selectedMinutes}`,
+      description: alarmLabel,
+      label: type,
+      enabled: false,
+    };
+
+    const updatedAlarms = alarms.map((a) => {
+      if (a.id === alarm.id) {
+        return {
+          ...a,
+          alarmsGroup: [...a.alarmsGroup, newAlarmGroup],
+        };
+      }
+      return a;
+    });
+
+    setAlarms(updatedAlarms);
   };
 
   const [selected, setSelected] = useState(people[0]);
