@@ -23,7 +23,7 @@ function App() {
               <div
                 className={`my-2 py-2 px-2  rounded-lg text-xl border  bg-gray-800/20 flex justify-between items-center ${
                   enabled
-                    ? "text-white border-gray-400"
+                    ? "text-white border-gray-500/50"
                     : "text-gray-700 border-gray-500/10"
                 }`}
               >

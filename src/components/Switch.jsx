@@ -9,7 +9,9 @@ export const MySwitch = ({ enabled, setEnabled }) => {
     >
       <span
         aria-hidden="true"
-        className="pointer-events-none inline-block size-3 translate-x-0 rounded-full bg-white ring-0 shadow-lg transition duration-200 ease-in-out group-data-[checked]:translate-x-5"
+        className={`pointer-events-none inline-block size-3 translate-x-0 rounded-full  ring-0 shadow-lg transition duration-200 ease-in-out group-data-[checked]:translate-x-5 ${
+          enabled ? "bg-white" : "bg-white/20"
+        }`}
       />
     </Switch>
   );
