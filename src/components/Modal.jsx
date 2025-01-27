@@ -14,6 +14,7 @@ export const MyModal = () => {
 
   return (
     <>
+    
       <Button
         onClick={open}
         className="rounded-full border border-gray-500/20 bg-black/20 p-1 text-sm font-medium text-white focus:outline-none hover:bg-gray-500/20 data-[focus]:outline-1 data-[focus]:outline-white"

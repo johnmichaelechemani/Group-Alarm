@@ -105,20 +105,27 @@ function App() {
 
   return (
     <>
-      <div className="flex justify-center items-center text-gray-300">
-        <div className="sm:border border-gray-500/20 sm:p-5 p-1 rounded-sm min-w-full sm:min-w-96">
+      <div className="flex justify-center items-start text-gray-300 my-5">
+        <div className="sm:border border-gray-500/20 sm:p-5 p-1 rounded-lg min-w-full sm:min-w-96">
           <div>
             {" "}
             <h1 className="text-xl text-gray-300 font-semibold">Group Alarm</h1>
             <div className="flex justify-between items-center">
               <SelectRingTone />
-              <MyModal />
+
+              <div className="text-end">
+                <p className="text-xs text-gray-500 font-medium">
+                  {" "}
+                  Add Group Alarm
+                </p>
+                <MyModal />
+              </div>
             </div>
           </div>
           {alarms.map((alarm, index) => (
             <div
               key={index}
-              className="border border-gray-500/20 p-2 rounded-sm my-2"
+              className="border border-gray-500/20 p-2 rounded-lg my-2"
             >
               <div className="flex justify-between items-center pb-1">
                 <h1
