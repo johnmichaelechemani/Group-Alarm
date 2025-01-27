@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <div className="flex justify-center items-center h-screen text-white">
-        <div className="border border-gray-500/20 p-5 rounded-sm min-w-full sm:min-w-96">
+        <div className="border border-gray-500/20 sm:p-5 p-1 rounded-sm min-w-full sm:min-w-96">
           <h1 className="text-xl text-white font-semibold">Group Alarm</h1>
           <div className="border border-gray-500/20 p-2 rounded-sm my-2">
             <div className="flex justify-between items-center">
