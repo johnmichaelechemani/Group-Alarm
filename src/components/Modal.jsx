@@ -11,8 +11,15 @@ import {
 import { useState } from "react";
 import clsx from "clsx";
 import { Icon } from "@iconify/react";
+import { Select } from "./Select";
 export const MyModal = ({ title, group }) => {
   let [isOpen, setIsOpen] = useState(false);
+  const time = {
+    id: 1,
+    hours: "Hours",
+    minutes: "Minutes",
+    seconds: "Seconds",
+  };
 
   function open() {
     setIsOpen(true);
@@ -21,6 +28,27 @@ export const MyModal = ({ title, group }) => {
   function close() {
     setIsOpen(false);
   }
+
+  const generateHours = () => {
+    return Array.from({ length: 12 }, (_, i) => ({
+      id: i + 1,
+      item: String(i + 1).padStart(2, "0"),
+    }));
+  };
+
+  const generateMinutes = () => {
+    return Array.from({ length: 60 }, (_, i) => ({
+      id: i,
+      item: String(i).padStart(2, "0"),
+    }));
+  };
+
+  const hours = generateHours();
+  const minutes = generateMinutes();
+  const type = [
+    { id: 1, item: "AM" },
+    { id: 2, item: "PM" },
+  ];
 
   return (
     <>
@@ -65,7 +93,7 @@ export const MyModal = ({ title, group }) => {
                 )}
                 <Field>
                   <Label className="text-sm/6 font-medium text-gray-300">
-                    {group && <span>Group</span>} Description
+                    {group && <span>Group</span>} Label
                   </Label>
 
                   <Input
@@ -75,13 +103,19 @@ export const MyModal = ({ title, group }) => {
                     )}
                   />
                 </Field>
+                <div className="flex gap-4">
+                  <Select items={hours} selectTitle={time.hours} />
+                  <Select items={minutes} selectTitle={time.minutes} />
+                  <Select items={type} selectTitle={"Time"} />
+                </div>
               </div>
-              <div className="mt-4">
+
+              <div className="mt-4 flex justify-end items-center">
                 <Button
-                  className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-gray-300 shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
+                  className="  gap-2 rounded-lg bg-gray-800/50 py-1.5 px-4 text-sm/6 font-semibold text-gray-300 shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600/50 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
                   onClick={close}
                 >
-                  Got it, thanks!
+                  Save
                 </Button>
               </div>
             </DialogPanel>

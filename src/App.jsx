@@ -2,7 +2,7 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import { MyModal } from "./components/Modal";
 import { MySwitch } from "./components/Switch";
-import { SelectRingTone } from "./components/Select";
+import { Select } from "./components/Select";
 
 function App() {
   const [alarms, setAlarms] = useState([
@@ -105,6 +105,14 @@ function App() {
 
   useEffect(() => {}, [alarms]);
 
+  const people = [
+    { id: 1, item: "Tom Cook" },
+    { id: 2, item: "Wade Cooper" },
+    { id: 3, item: "Tanya Fox" },
+    { id: 4, item: "Arlene Mccoy" },
+    { id: 5, item: "Devon Webb" },
+  ];
+
   return (
     <>
       <div className="flex justify-center items-start text-gray-300 my-5">
@@ -113,7 +121,7 @@ function App() {
             {" "}
             <h1 className="text-xl text-gray-300 font-semibold">Group Alarm</h1>
             <div className="flex justify-between items-center ">
-              <SelectRingTone />
+              <Select items={people} selectTitle="Select Ringtones " />
 
               <div className="text-end">
                 <p className="text-xs text-gray-500 font-medium">

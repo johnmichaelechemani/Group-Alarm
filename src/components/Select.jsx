@@ -8,20 +8,12 @@ import { Icon } from "@iconify/react";
 import clsx from "clsx";
 import { useState } from "react";
 
-const people = [
-  { id: 1, name: "Tom Cook" },
-  { id: 2, name: "Wade Cooper" },
-  { id: 3, name: "Tanya Fox" },
-  { id: 4, name: "Arlene Mccoy" },
-  { id: 5, name: "Devon Webb" },
-];
-
-export const SelectRingTone = () => {
-  const [selected, setSelected] = useState(people[1]);
+export const Select = ({ items, selectTitle }) => {
+  const [selected, setSelected] = useState(items[0]);
 
   return (
-    <div className="w-52 my-2">
-      <p className="text-xs text-gray-500 font-medium"> Select Ringtones</p>
+    <div className="w-full my-2">
+      <p className="text-xs text-gray-500 font-medium"> {selectTitle}</p>
       <Listbox value={selected} onChange={setSelected}>
         <ListboxButton
           className={clsx(
@@ -29,7 +21,7 @@ export const SelectRingTone = () => {
             "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25"
           )}
         >
-          {selected.name}
+          {selected.item}
 
           <Icon
             icon="mdi-light:chevron-down"
@@ -42,14 +34,14 @@ export const SelectRingTone = () => {
           anchor="bottom"
           transition
           className={clsx(
-            "w-[var(--button-width)] rounded-xl border border-white/5 bg-gray-400/5 backdrop-blur-2xl p-1 [--anchor-gap:var(--spacing-1)] focus:outline-none",
+            "w-[var(--button-width)] max-h-52  z-10 rounded-xl border border-white/5 bg-gray-400/5 backdrop-blur-2xl p-1 [--anchor-gap:var(--spacing-1)] focus:outline-none",
             "transition duration-100 ease-in data-[leave]:data-[closed]:opacity-0"
           )}
         >
-          {people.map((person) => (
+          {items.map((item) => (
             <ListboxOption
-              key={person.name}
-              value={person}
+              key={item.item}
+              value={item}
               className="group flex cursor-default items-center gap-2 rounded-lg py-1.5 px-3 select-none data-[focus]:bg-white/10"
             >
               <Icon
@@ -58,7 +50,7 @@ export const SelectRingTone = () => {
                 height="20"
                 className="invisible size-4 text-gray-300 group-data-[selected]:visible"
               />
-              <div className="text-sm/6 text-gray-300">{person.name}</div>
+              <div className="text-sm/6 text-gray-300">{item.item}</div>
             </ListboxOption>
           ))}
         </ListboxOptions>
