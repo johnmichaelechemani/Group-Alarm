@@ -19,7 +19,21 @@ function App() {
         },
         {
           id: 2,
-          time: "11:10",
+          time: "12:10",
+          description: "lunch",
+          label: "AM",
+          enabled: false,
+        },
+        {
+          id: 3,
+          time: "01:10",
+          description: "lunch",
+          label: "AM",
+          enabled: false,
+        },
+        {
+          id: 4,
+          time: "02:10",
           description: "lunch",
           label: "AM",
           enabled: false,
@@ -34,7 +48,7 @@ function App() {
         {
           id: 1,
           time: "03:50",
-          description: "wake up",
+          description: "Shower",
           label: "PM",
           enabled: false,
         },
@@ -90,18 +104,18 @@ function App() {
 
   return (
     <>
-      <div className="flex justify-center items-center h-screen text-white">
-        <div className="border border-gray-500/20 sm:p-5 p-1 rounded-sm min-w-full sm:min-w-96">
-          <h1 className="text-xl text-white font-semibold">Group Alarm</h1>
+      <div className="flex justify-center items-center h-screen text-gray-300">
+        <div className="sm:border border-gray-500/20 sm:p-5 p-1 rounded-sm min-w-full sm:min-w-96">
+          <h1 className="text-xl text-gray-300 font-semibold">Group Alarm</h1>
           {alarms.map((alarm, index) => (
             <div
               key={index}
               className="border border-gray-500/20 p-2 rounded-sm my-2"
             >
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-center pb-1">
                 <h1
                   className={`text-sm font-semibold ${
-                    alarm.enabled ? "text-white" : "text-gray-500"
+                    alarm.enabled ? "text-gray-300" : "text-gray-500"
                   }`}
                 >
                   {alarm.title}
@@ -114,26 +128,33 @@ function App() {
                   <MyModal />
                 </div>
               </div>
-              {alarm.alarmsGroup.map((alarmGroup, index) => (
-                <div
-                  key={index}
-                  className={`my-2 py-2 px-2  rounded-lg text-xl border flex justify-between items-center ${
-                    alarmGroup.enabled
-                      ? "text-white border-gray-500/50 bg-blue-600/5"
-                      : "text-gray-700 border-gray-500/10 bg-gray-800/20"
-                  }`}
-                >
-                  <div>
-                    {" "}
-                    {alarmGroup.time}{" "}
-                    <span className="text-xs">{alarmGroup.label} </span>
+              <div className=" max-h-52 overflow-y-auto pr-1">
+                {alarm.alarmsGroup.map((alarmGroup, index) => (
+                  <div
+                    key={index}
+                    className={`my-2 py-2 px-2 rounded-lg text-xl border flex justify-between items-center ${
+                      alarmGroup.enabled
+                        ? "text-gray-300 border-gray-500/50 bg-blue-600/5"
+                        : "text-gray-700 border-gray-500/10 bg-gray-800/20"
+                    }`}
+                  >
+                    <div>
+                      <div className="font-semibold">
+                        {" "}
+                        {alarmGroup.time}{" "}
+                        <span className="text-xs">{alarmGroup.label} </span>
+                      </div>
+                      <div className="text-xs capitalize">
+                        {alarmGroup.description}
+                      </div>
+                    </div>
+                    <MySwitch
+                      enabled={alarmGroup.enabled}
+                      setEnabled={() => toggleAlarm(alarm.id, alarmGroup.id)}
+                    />
                   </div>
-                  <MySwitch
-                    enabled={alarmGroup.enabled}
-                    setEnabled={() => toggleAlarm(alarm.id, alarmGroup.id)}
-                  />
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           ))}
         </div>
