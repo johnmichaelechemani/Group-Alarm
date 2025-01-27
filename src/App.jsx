@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MyModal } from "./components/Modal";
 import { MySwitch } from "./components/Switch";
 
@@ -50,9 +50,8 @@ function App() {
   ]);
 
   const toggleAlarm = (id, groupId) => {
-    console.log(id, groupId);
-    setAlarms(
-      alarms.map((alarm) =>
+    setAlarms((prevAlarms) =>
+      prevAlarms.map((alarm) =>
         alarm.id === id
           ? {
               ...alarm,
@@ -65,21 +64,29 @@ function App() {
           : alarm
       )
     );
-    console.table(alarms);
   };
   const toggleAllAlarm = (id) => {
-    setAlarms(
-      alarms.map((alarm) =>
-        alarm.id === id
-          ? {
-              ...alarm,
-              enabled: !alarm.enabled,
-            }
-          : alarm
-      )
-    );
-    console.table(alarms);
+    setAlarms((prevAlarms) => {
+      const newAlarms = prevAlarms.map((alarm) => {
+        if (alarm.id === id) {
+          const newEnabled = !alarm.enabled;
+          return {
+            ...alarm,
+            enabled: newEnabled,
+            alarmsGroup: alarm.alarmsGroup.map((group) => ({
+              ...group,
+              enabled: newEnabled,
+            })),
+          };
+        }
+        return alarm;
+      });
+      console.table(newAlarms);
+      return newAlarms;
+    });
   };
+
+  useEffect(() => {}, [alarms]);
 
   return (
     <>
@@ -112,7 +119,7 @@ function App() {
                   key={index}
                   className={`my-2 py-2 px-2  rounded-lg text-xl border flex justify-between items-center ${
                     alarmGroup.enabled
-                      ? "text-white border-gray-500/50 bg-blue-600/10"
+                      ? "text-white border-gray-500/50 bg-blue-600/5"
                       : "text-gray-700 border-gray-500/10 bg-gray-800/20"
                   }`}
                 >
