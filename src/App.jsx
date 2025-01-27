@@ -5,6 +5,30 @@ import { MySwitch } from "./components/Switch";
 
 function App() {
   const [enabled, setEnabled] = useState(false);
+  const [alarms, setAlarms] = useState([
+    {
+      title: "Alarm 1",
+      enabled: true,
+      alarmsGroup: [
+        {
+          time: "04:50 PM",
+          description: "wake up",
+          label: "PM",
+          enabled: true,
+        },
+        {
+          time: "11:10 AM",
+          description: "lunch",
+          label: "AM",
+          enabled: false,
+        },
+      ],
+    },
+    {
+      title: "Alarm 2",
+      enabled: false,
+    },
+  ]);
 
   return (
     <>
@@ -13,7 +37,7 @@ function App() {
           <h1 className="text-xl text-white font-semibold">Group Alarm</h1>
           <div className="border border-gray-500/20 p-2 rounded-sm my-2">
             <div className="flex justify-between items-center">
-              <h1 className="text-xl text-white font-semibold">Alarm 1</h1>
+              <h1 className="text-sm text-white font-semibold">Alarm 1</h1>
               <div className="flex justify-center items-center gap-2">
                 <MySwitch />
                 <MyModal />
@@ -21,10 +45,10 @@ function App() {
             </div>
             <div>
               <div
-                className={`my-2 py-2 px-2  rounded-lg text-xl border  bg-gray-800/20 flex justify-between items-center ${
+                className={`my-2 py-2 px-2  rounded-lg text-xl border   flex justify-between items-center ${
                   enabled
-                    ? "text-white border-gray-500/50"
-                    : "text-gray-700 border-gray-500/10"
+                    ? "text-white border-gray-500/50 bg-blue-600/10"
+                    : "text-gray-700 border-gray-500/10 bg-gray-800/20"
                 }`}
               >
                 <div>
