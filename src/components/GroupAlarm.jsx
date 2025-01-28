@@ -11,14 +11,14 @@ import { useState } from "react";
 import clsx from "clsx";
 import { Icon } from "@iconify/react";
 import { Select } from "./Select";
-export const MyModal = ({ alarm, title, group, addAlarm }) => {
+export const GroupAlarm = ({ alarm, title, addAlarm, groupId }) => {
   let [isOpen, setIsOpen] = useState(false);
   const [selectedHours, setSelectedHours] = useState({ id: 1, item: "01" });
   const [selectedMinutes, setSelectedMinutes] = useState({ id: 1, item: "00" });
   const [type, setType] = useState({ id: 1, item: "AM" });
-  const alarms = alarm;
+  const [alarmLabel, setAlarmLabel] = useState("");
   const generateId = () => {
-    return Math.max(...alarms.map((alarm) => alarm.id), 0) + 1;
+    return Math.max(...alarm.map((alarm) => alarm.id), 0) + 1;
   };
 
   function open() {
@@ -29,22 +29,25 @@ export const MyModal = ({ alarm, title, group, addAlarm }) => {
   }
 
   function save() {
-    const newAlarm = {
-      id: generateId,
-      title: groupTitle,
-      description: groupLabel,
+    const newAlarmGroup = {
+      id: generateId(),
+      time: `${selectedHours.item}:${selectedMinutes.item}`,
+      description: alarmLabel,
+      label: type.item,
       enabled: false,
-      alarmsGroup: [
-        {
-          id: generateId,
-          time: `${selectedHours.item}:${selectedMinutes.item}`,
-          description: alarmLabel,
-          label: type.item,
-          enabled: false,
-        },
-      ],
     };
-    addAlarm(newAlarm);
+
+    const updatedAlarms = alarm.map((a) => {
+      if (a.id === groupId) {
+        return {
+          ...a,
+          alarmsGroup: [...a.alarmsGroup, newAlarmGroup],
+        };
+      }
+      return a;
+    });
+
+    addAlarm(updatedAlarms);
 
     setIsOpen(false);
   }
@@ -76,10 +79,6 @@ export const MyModal = ({ alarm, title, group, addAlarm }) => {
     { id: 2, item: "PM" },
   ];
 
-  const [groupTitle, setTitle] = useState("");
-  const [groupLabel, setGroupLabel] = useState("");
-  const [alarmLabel, setAlarmLabel] = useState("");
-
   return (
     <>
       <Button
@@ -108,34 +107,6 @@ export const MyModal = ({ alarm, title, group, addAlarm }) => {
                 {title}
               </DialogTitle>
               <div className="w-full">
-                <Field>
-                  <Label className="text-sm/6 font-medium text-gray-300">
-                    Title
-                  </Label>
-                  <Input
-                    value={groupTitle}
-                    onChange={(e) => setTitle(e.target.value)}
-                    className={clsx(
-                      "my-2 block w-full rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-gray-300",
-                      "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25"
-                    )}
-                  />
-                </Field>
-
-                <Field>
-                  <Label className="text-sm/6 font-medium text-gray-300">
-                    Group Label
-                  </Label>
-
-                  <Input
-                    value={groupLabel}
-                    onChange={(e) => setGroupLabel(e.target.value)}
-                    className={clsx(
-                      "my-2 block w-full rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-gray-300",
-                      "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25"
-                    )}
-                  />
-                </Field>
                 <Field>
                   <Label className="text-sm/6 font-medium text-gray-300">
                     Alarm Label

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { MyModal } from "./components/Modal";
 import { MySwitch } from "./components/Switch";
 import { Select } from "./components/Select";
+import { GroupAlarm } from "./components/GroupAlarm";
 
 function App() {
   const people = [
@@ -18,25 +19,8 @@ function App() {
   };
 
   const addGroupAlarm = (alarm) => {
-    const newAlarmGroup = {
-      id: generateId(),
-      time: `${selectedHours}:${selectedMinutes}`,
-      description: alarmLabel,
-      label: type,
-      enabled: false,
-    };
-
-    const updatedAlarms = alarms.map((a) => {
-      if (a.id === alarm.id) {
-        return {
-          ...a,
-          alarmsGroup: [...a.alarmsGroup, newAlarmGroup],
-        };
-      }
-      return a;
-    });
-
-    setAlarms(updatedAlarms);
+    console.log(alarm);
+    setAlarms([...alarm]);
   };
 
   const [selected, setSelected] = useState(people[0]);
@@ -176,9 +160,11 @@ function App() {
                     enabled={alarm.enabled}
                     setEnabled={() => toggleAllAlarm(alarm.id)}
                   />
-                  <MyModal
+
+                  <GroupAlarm
                     title={`Add Alarm in  ${alarm.title}`}
-                    alarm={alarm}
+                    alarm={alarms}
+                    groupId={alarm.id}
                     addAlarm={addGroupAlarm}
                   />
                 </div>
