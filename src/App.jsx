@@ -6,12 +6,10 @@ import { Select } from "./components/Select";
 import { GroupAlarm } from "./components/GroupAlarm";
 
 function App() {
-  const people = [
-    { id: 1, item: "Tom Cook" },
-    { id: 2, item: "Wade Cooper" },
-    { id: 3, item: "Tanya Fox" },
-    { id: 4, item: "Arlene Mccoy" },
-    { id: 5, item: "Devon Webb" },
+  const ringtones = [
+    { id: 1, item: "Luffy" },
+    { id: 2, item: "Wave" },
+    { id: 3, item: "Rain" },
   ];
 
   const addAlarm = (newAlarm) => {
@@ -19,11 +17,10 @@ function App() {
   };
 
   const addGroupAlarm = (alarm) => {
-    console.log(alarm);
     setAlarms([...alarm]);
   };
 
-  const [selected, setSelected] = useState(people[0]);
+  const [selected, setSelected] = useState(ringtones[0]);
   const [alarms, setAlarms] = useState([
     {
       id: 1,
@@ -119,16 +116,16 @@ function App() {
             <h1 className="text-xl text-gray-300 font-semibold">Group Alarm</h1>
             <div className="flex justify-between items-center ">
               <Select
-                items={people}
+                items={ringtones}
                 selectTitle="Select Ringtones "
                 selected={selected}
                 setSelected={setSelected}
               />
 
-              <div className="text-end">
+              <div className="text-end min-w-32">
                 <p className="text-xs text-gray-500 font-medium">
                   {" "}
-                  Add Group Alarm
+                  Add group alarm
                 </p>
                 <MyModal
                   title="Add Group Alarm"
