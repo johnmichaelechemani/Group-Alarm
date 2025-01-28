@@ -11,15 +11,17 @@ import { useState } from "react";
 import clsx from "clsx";
 import { Icon } from "@iconify/react";
 import { Select } from "./Select";
-export const MyModal = ({ alarm, title, group, addAlarm }) => {
+import { generateId, hours, types, minutes, time } from "../composables";
+
+export const MyModal = ({ alarm, title, addAlarm }) => {
   let [isOpen, setIsOpen] = useState(false);
   const [selectedHours, setSelectedHours] = useState({ id: 1, item: "01" });
   const [selectedMinutes, setSelectedMinutes] = useState({ id: 1, item: "00" });
   const [type, setType] = useState({ id: 1, item: "AM" });
-  const alarms = alarm;
-  const generateId = () => {
-    return Math.max(...alarms.map((alarm) => alarm.id), 0) + 1;
-  };
+
+  const [groupTitle, setTitle] = useState("");
+  const [groupLabel, setGroupLabel] = useState("");
+  const [alarmLabel, setAlarmLabel] = useState("");
 
   function open() {
     setIsOpen(true);
@@ -30,13 +32,13 @@ export const MyModal = ({ alarm, title, group, addAlarm }) => {
 
   function save() {
     const newAlarm = {
-      id: generateId,
+      id: generateId(alarm),
       title: groupTitle,
       description: groupLabel,
       enabled: false,
       alarmsGroup: [
         {
-          id: generateId,
+          id: generateId(alarm),
           time: `${selectedHours.item}:${selectedMinutes.item}`,
           description: alarmLabel,
           label: type.item,
@@ -48,37 +50,6 @@ export const MyModal = ({ alarm, title, group, addAlarm }) => {
 
     setIsOpen(false);
   }
-
-  const generateHours = () => {
-    return Array.from({ length: 12 }, (_, i) => ({
-      id: i + 1,
-      item: String(i + 1).padStart(2, "0"),
-    }));
-  };
-
-  const generateMinutes = () => {
-    return Array.from({ length: 60 }, (_, i) => ({
-      id: i,
-      item: String(i).padStart(2, "0"),
-    }));
-  };
-
-  const time = {
-    id: 1,
-    hours: "Hours",
-    minutes: "Minutes",
-    seconds: "Seconds",
-  };
-  const hours = generateHours();
-  const minutes = generateMinutes();
-  const types = [
-    { id: 1, item: "AM" },
-    { id: 2, item: "PM" },
-  ];
-
-  const [groupTitle, setTitle] = useState("");
-  const [groupLabel, setGroupLabel] = useState("");
-  const [alarmLabel, setAlarmLabel] = useState("");
 
   return (
     <>

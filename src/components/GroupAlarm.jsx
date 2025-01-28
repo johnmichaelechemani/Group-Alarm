@@ -11,15 +11,14 @@ import { useState } from "react";
 import clsx from "clsx";
 import { Icon } from "@iconify/react";
 import { Select } from "./Select";
+import { generateId, types, hours, time, minutes } from "../composables";
+
 export const GroupAlarm = ({ alarm, title, addAlarm, groupId }) => {
   let [isOpen, setIsOpen] = useState(false);
   const [selectedHours, setSelectedHours] = useState({ id: 1, item: "01" });
   const [selectedMinutes, setSelectedMinutes] = useState({ id: 1, item: "00" });
   const [type, setType] = useState({ id: 1, item: "AM" });
   const [alarmLabel, setAlarmLabel] = useState("");
-  const generateId = () => {
-    return Math.max(...alarm.map((alarm) => alarm.id), 0) + 1;
-  };
 
   function open() {
     setIsOpen(true);
@@ -30,13 +29,12 @@ export const GroupAlarm = ({ alarm, title, addAlarm, groupId }) => {
 
   function save() {
     const newAlarmGroup = {
-      id: generateId(),
+      id: generateId(alarm),
       time: `${selectedHours.item}:${selectedMinutes.item}`,
       description: alarmLabel,
       label: type.item,
       enabled: false,
     };
-
     const updatedAlarms = alarm.map((a) => {
       if (a.id === groupId) {
         return {
@@ -46,39 +44,9 @@ export const GroupAlarm = ({ alarm, title, addAlarm, groupId }) => {
       }
       return a;
     });
-
     addAlarm(updatedAlarms);
-
     setIsOpen(false);
   }
-
-  const generateHours = () => {
-    return Array.from({ length: 12 }, (_, i) => ({
-      id: i + 1,
-      item: String(i + 1).padStart(2, "0"),
-    }));
-  };
-
-  const generateMinutes = () => {
-    return Array.from({ length: 60 }, (_, i) => ({
-      id: i,
-      item: String(i).padStart(2, "0"),
-    }));
-  };
-
-  const time = {
-    id: 1,
-    hours: "Hours",
-    minutes: "Minutes",
-    seconds: "Seconds",
-  };
-  const hours = generateHours();
-  const minutes = generateMinutes();
-  const types = [
-    { id: 1, item: "AM" },
-    { id: 2, item: "PM" },
-  ];
-
   return (
     <>
       <Button
