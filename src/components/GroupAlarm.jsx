@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import clsx from "clsx";
 import { Icon } from "@iconify/react";
+import PropTypes from "prop-types";
 import { Select } from "./Select";
 import { generateId, types, hours, time, minutes } from "../composables";
 
@@ -46,6 +47,12 @@ export const GroupAlarm = ({ alarm, title, addAlarm, groupId }) => {
     });
     addAlarm(updatedAlarms);
     setIsOpen(false);
+    GroupAlarm.propTypes = {
+      alarm: PropTypes.object.isRequired,
+      title: PropTypes.string.isRequired,
+      addAlarm: PropTypes.func.isRequired,
+      groupId: PropTypes.number.isRequired,
+    };
   }
   return (
     <>

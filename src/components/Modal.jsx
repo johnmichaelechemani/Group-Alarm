@@ -8,6 +8,7 @@ import {
   Label,
 } from "@headlessui/react";
 import { useState } from "react";
+import PropTypes from "prop-types";
 import clsx from "clsx";
 import { Icon } from "@iconify/react";
 import { Select } from "./Select";
@@ -49,6 +50,12 @@ export const MyModal = ({ alarm, title, addAlarm }) => {
     addAlarm(newAlarm);
 
     setIsOpen(false);
+
+    MyModal.propTypes = {
+      alarm: PropTypes.object.isRequired,
+      title: PropTypes.string.isRequired,
+      addAlarm: PropTypes.func.isRequired,
+    };
   }
 
   return (
