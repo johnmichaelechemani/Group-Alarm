@@ -39,15 +39,17 @@ export const Select = ({ items, selectTitle, selected, setSelected }) => {
             <ListboxOption
               key={item.item}
               value={item}
-              className="group flex cursor-default items-center gap-2 rounded-lg py-1.5 px-3 select-none data-[focus]:bg-white/10"
+              className="group flex justify-between cursor-default items-center gap-2 rounded-lg py-1.5 px-3 select-none data-[focus]:bg-white/10"
             >
-              <Icon
-                icon="mdi-light:check"
-                width="20"
-                height="20"
-                className="invisible size-4 text-gray-300 group-data-[selected]:visible"
-              />
-              <div className="text-sm/6 text-gray-300">{item.item}</div>
+              <div className="flex items-center gap-2">
+                <Icon
+                  icon="mdi-light:check"
+                  width="20"
+                  height="20"
+                  className="invisible size-4 text-gray-300 group-data-[selected]:visible"
+                />
+                <div className="text-sm/6 text-gray-300">{item.item}</div>
+              </div>
             </ListboxOption>
           ))}
         </ListboxOptions>
