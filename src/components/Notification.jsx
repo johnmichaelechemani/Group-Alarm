@@ -1,18 +1,27 @@
 import { Icon } from "@iconify/react";
+import PropTypes from "prop-types";
 
-export const Notification = ({ title, message, type }) => {
+export const Notification = ({ data }) => {
+  Notification.propTypes = {
+    data: PropTypes.object.isRequired,
+  };
+
   return (
     <>
-      <div className="border border-blue-500/20 shadow-md shadow-blue-500/20 mb-2 bg-blue-500/10 p-2 rounded-lg flex justify-between items-center gap-1 ">
+      <div
+        key={data.id}
+        className="border border-blue-500/20 shadow-md shadow-blue-500/20 mb-2 bg-blue-500/10 p-2 rounded-lg flex justify-between items-center gap-1 "
+      >
         <div className="flex items-start gap-1">
           <div>
             <Icon icon="mdi-light:clock" width="24" height="24" />
           </div>
           <div>
             <p className="text-sm font-medium">
-              Upcoming alarm: {message} {type}
-            </p>{" "}
-            <p className="text-xs text-gray-500"> {title}</p>
+              Upcoming alarm: {data.data.alarmsGroup[0].time}{" "}
+              {data.data.alarmsGroup[0].label}
+            </p>
+            <p className="text-xs text-gray-500">{data.data.title}</p>
           </div>
         </div>
         <div>

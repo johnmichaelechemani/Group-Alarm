@@ -84,10 +84,9 @@ function App() {
                   enabled: newEnabled,
                 };
               }
+              console.table(alarm);
               setNotification({
-                message: alarm.alarmsGroup[0].time,
-                title: alarm.title,
-                label: alarm.alarmsGroup[0].label,
+                data: alarm,
               });
               return alarmGroup;
             }),
@@ -101,7 +100,6 @@ function App() {
     });
   };
   const toggleAllAlarm = (id) => {
-    console.log(id);
     setAlarms((prevAlarms) => {
       const newAlarms = prevAlarms.map((alarm) => {
         if (alarm.id === id) {
@@ -115,6 +113,9 @@ function App() {
             })),
           };
         }
+        setNotification({
+          data: alarm,
+        });
         return alarm;
       });
       console.table(newAlarms);
@@ -131,13 +132,7 @@ function App() {
       <div className="flex justify-center items-start text-gray-300 my-5">
         <div className="sm:border border-gray-500/20 sm:p-5 p-1 rounded-lg min-w-full sm:min-w-96">
           <div>
-            {notification.length !== 0 && (
-              <Notification
-                title={notification.title}
-                message={notification.message}
-                type={notification.label}
-              />
-            )}
+            {notification.length !== 0 && <Notification data={notification} />}
             <h1 className="text-xl text-gray-300 font-semibold">Group Alarm</h1>
             <div className="flex justify-between items-center ">
               <Select
