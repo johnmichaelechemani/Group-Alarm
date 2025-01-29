@@ -4,6 +4,7 @@ import { MyModal } from "./components/Modal";
 import { MySwitch } from "./components/Switch";
 import { Select } from "./components/Select";
 import { GroupAlarm } from "./components/GroupAlarm";
+import { Notification } from "./components/Notification";
 
 function App() {
   const ringtones = [
@@ -112,7 +113,7 @@ function App() {
       <div className="flex justify-center items-start text-gray-300 my-5">
         <div className="sm:border border-gray-500/20 sm:p-5 p-1 rounded-lg min-w-full sm:min-w-96">
           <div>
-            {" "}
+            <Notification />{" "}
             <h1 className="text-xl text-gray-300 font-semibold">Group Alarm</h1>
             <div className="flex justify-between items-center ">
               <Select
