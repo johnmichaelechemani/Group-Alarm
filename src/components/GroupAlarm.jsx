@@ -28,6 +28,27 @@ export const GroupAlarm = ({ alarm, title, addAlarm, groupId }) => {
     setIsOpen(false);
   }
 
+  const convertTimeToMinutes = (time, label) => {
+    const [hours, minutes] = time.split(":").map(Number);
+    let totalMinutes = hours * 60 + minutes;
+
+    if (label === "PM" && hours !== 12) {
+      totalMinutes += 12 * 60;
+    }
+    if (label === "AM" && hours === 12) {
+      totalMinutes = 0;
+    }
+    return totalMinutes;
+  };
+
+  const sortAlarms = (alarm) => {
+    return [...alarm].sort((a, b) => {
+      const timeA = convertTimeToMinutes(a.time, a.label);
+      const timeB = convertTimeToMinutes(b.time, b.label);
+      return timeA - timeB;
+    });
+  };
+
   function save() {
     const newAlarmGroup = {
       id: generateId(alarm),
@@ -40,7 +61,7 @@ export const GroupAlarm = ({ alarm, title, addAlarm, groupId }) => {
       if (a.id === groupId) {
         return {
           ...a,
-          alarmsGroup: [...a.alarmsGroup, newAlarmGroup],
+          alarmsGroup: sortAlarms([...a.alarmsGroup, newAlarmGroup]),
         };
       }
       return a;
@@ -48,7 +69,7 @@ export const GroupAlarm = ({ alarm, title, addAlarm, groupId }) => {
     addAlarm(updatedAlarms);
     setIsOpen(false);
     GroupAlarm.propTypes = {
-      alarm: PropTypes.object.isRequired,
+      alarm: PropTypes.array.isRequired,
       title: PropTypes.string.isRequired,
       addAlarm: PropTypes.func.isRequired,
       groupId: PropTypes.number.isRequired,

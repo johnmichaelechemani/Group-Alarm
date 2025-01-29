@@ -52,7 +52,7 @@ export const MyModal = ({ alarm, title, addAlarm }) => {
     setIsOpen(false);
 
     MyModal.propTypes = {
-      alarm: PropTypes.object.isRequired,
+      alarm: PropTypes.array.isRequired,
       title: PropTypes.string.isRequired,
       addAlarm: PropTypes.func.isRequired,
     };
