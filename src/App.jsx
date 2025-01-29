@@ -118,6 +118,9 @@ function App() {
       return newAlarms;
     });
   };
+  const clearNotification = () => {
+    setNotification([]);
+  };
 
   useEffect(() => {
     //console.table(alarms);
@@ -128,7 +131,9 @@ function App() {
       <div className="flex justify-center items-start text-gray-300 my-5">
         <div className="sm:border border-gray-500/20 sm:p-5 p-1 rounded-lg min-w-full sm:min-w-96">
           <div>
-            {notification.length !== 0 && <Notification data={notification} />}
+            {notification.length !== 0 && (
+              <Notification data={notification} onClear={clearNotification} />
+            )}
             <h1 className="text-xl text-gray-300 font-semibold">Group Alarm</h1>
             <div className="flex justify-between items-center ">
               <Select

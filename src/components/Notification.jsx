@@ -1,9 +1,10 @@
 import { Icon } from "@iconify/react";
 import PropTypes from "prop-types";
 
-export const Notification = ({ data }) => {
+export const Notification = ({ data, onClear }) => {
   Notification.propTypes = {
     data: PropTypes.object.isRequired,
+    onClear: PropTypes.func.isRequired,
   };
 
   return (
@@ -25,7 +26,10 @@ export const Notification = ({ data }) => {
           </div>
         </div>
         <div>
-          <button className="text-xs font-semibold text-gray-400 shadow border border-gray-500/20 px-2 py-1 rounded-full">
+          <button
+            onClick={onClear}
+            className="text-xs font-semibold text-gray-400 shadow border border-gray-500/20 px-2 py-1 rounded-full"
+          >
             Turn off
           </button>
         </div>
