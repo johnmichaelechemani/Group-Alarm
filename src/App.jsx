@@ -122,9 +122,7 @@ function App() {
     setNotification([]);
   };
 
-  useEffect(() => {
-    //console.table(alarms);
-  }, [alarms]);
+  useEffect(() => {}, [alarms]);
 
   return (
     <>
