@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 
-export const Notification = () => {
+export const Notification = ({ title, message, type }) => {
   return (
     <>
       <div className="border border-blue-500/20 shadow-md shadow-blue-500/20 mb-2 bg-blue-500/10 p-2 rounded-lg flex justify-between items-center gap-1 ">
@@ -10,9 +10,9 @@ export const Notification = () => {
           </div>
           <div>
             <p className="text-sm font-medium">
-              Upcoming alarm: <span>10:03 AM</span>
+              Upcoming alarm: {message} {type}
             </p>{" "}
-            <p className="text-xs text-gray-500"> Second Alarm</p>
+            <p className="text-xs text-gray-500"> {title}</p>
           </div>
         </div>
         <div>

@@ -22,6 +22,7 @@ function App() {
   };
 
   const [selected, setSelected] = useState(ringtones[0]);
+  const [notification, setNotification] = useState([]);
   const [alarms, setAlarms] = useState([
     {
       id: 1,
@@ -83,12 +84,18 @@ function App() {
                   enabled: newEnabled,
                 };
               }
+              setNotification({
+                message: alarm.alarmsGroup[0].time,
+                title: alarm.title,
+                label: alarm.alarmsGroup[0].label,
+              });
               return alarmGroup;
             }),
           };
         }
         return alarm;
       });
+
       console.table(newAlarms);
       return newAlarms;
     });
@@ -124,11 +131,13 @@ function App() {
       <div className="flex justify-center items-start text-gray-300 my-5">
         <div className="sm:border border-gray-500/20 sm:p-5 p-1 rounded-lg min-w-full sm:min-w-96">
           <div>
-            <Notification
-              group={"First Alarm"}
-              time={"01:51 PM"}
-              stop={"stop function"}
-            />{" "}
+            {notification.length !== 0 && (
+              <Notification
+                title={notification.title}
+                message={notification.message}
+                type={notification.label}
+              />
+            )}
             <h1 className="text-xl text-gray-300 font-semibold">Group Alarm</h1>
             <div className="flex justify-between items-center ">
               <Select
