@@ -70,22 +70,31 @@ function App() {
   ]);
 
   const toggleAlarm = (id, groupId) => {
-    setAlarms((prevAlarms) =>
-      prevAlarms.map((alarm) =>
-        alarm.id === id
-          ? {
-              ...alarm,
-              alarmsGroup: alarm.alarmsGroup.map((alarmGroup) =>
-                alarmGroup.id === groupId
-                  ? { ...alarmGroup, enabled: !alarmGroup.enabled }
-                  : alarmGroup
-              ),
-            }
-          : alarm
-      )
-    );
+    setAlarms((prevAlarms) => {
+      const newAlarms = prevAlarms.map((alarm) => {
+        if (alarm.id === id) {
+          return {
+            ...alarm,
+            alarmsGroup: alarm.alarmsGroup.map((alarmGroup) => {
+              const newEnabled = !alarmGroup.enabled;
+              if (alarmGroup.id === groupId) {
+                return {
+                  ...alarmGroup,
+                  enabled: newEnabled,
+                };
+              }
+              return alarmGroup;
+            }),
+          };
+        }
+        return alarm;
+      });
+      console.table(newAlarms);
+      return newAlarms;
+    });
   };
   const toggleAllAlarm = (id) => {
+    console.log(id);
     setAlarms((prevAlarms) => {
       const newAlarms = prevAlarms.map((alarm) => {
         if (alarm.id === id) {
@@ -106,7 +115,9 @@ function App() {
     });
   };
 
-  useEffect(() => {}, [alarms]);
+  useEffect(() => {
+    //console.table(alarms);
+  }, [alarms]);
 
   return (
     <>
