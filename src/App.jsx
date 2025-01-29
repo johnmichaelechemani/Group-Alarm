@@ -84,7 +84,6 @@ function App() {
                   enabled: newEnabled,
                 };
               }
-              console.table(alarm);
               setNotification({
                 data: alarm,
               });
@@ -94,8 +93,6 @@ function App() {
         }
         return alarm;
       });
-
-      console.table(newAlarms);
       return newAlarms;
     });
   };
@@ -103,6 +100,9 @@ function App() {
     setAlarms((prevAlarms) => {
       const newAlarms = prevAlarms.map((alarm) => {
         if (alarm.id === id) {
+          setNotification({
+            data: alarm,
+          });
           const newEnabled = !alarm.enabled;
           return {
             ...alarm,
@@ -113,12 +113,8 @@ function App() {
             })),
           };
         }
-        setNotification({
-          data: alarm,
-        });
         return alarm;
       });
-      console.table(newAlarms);
       return newAlarms;
     });
   };
