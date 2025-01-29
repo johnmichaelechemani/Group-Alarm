@@ -31,16 +31,16 @@ function App() {
       alarmsGroup: [
         {
           id: 1,
-          time: "04:50",
+          time: "01:50",
           description: "wake up",
           label: "PM",
           enabled: false,
         },
         {
           id: 2,
-          time: "12:10",
+          time: "01:51",
           description: "lunch",
-          label: "AM",
+          label: "PM",
           enabled: false,
         },
       ],
@@ -60,7 +60,7 @@ function App() {
         },
         {
           id: 2,
-          time: "08:10",
+          time: "03:51",
           description: "Sleep",
           label: "PM",
           enabled: false,
@@ -113,7 +113,11 @@ function App() {
       <div className="flex justify-center items-start text-gray-300 my-5">
         <div className="sm:border border-gray-500/20 sm:p-5 p-1 rounded-lg min-w-full sm:min-w-96">
           <div>
-            <Notification />{" "}
+            <Notification
+              group={"First Alarm"}
+              time={"01:51 PM"}
+              stop={"stop function"}
+            />{" "}
             <h1 className="text-xl text-gray-300 font-semibold">Group Alarm</h1>
             <div className="flex justify-between items-center ">
               <Select
