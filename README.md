@@ -5,6 +5,14 @@ tailwind links:  <script src="https://unpkg.com/@tailwindcss/browser@4"></script
         --color-clifford: #da373d;
       }
     </style>
+
+#extensions
+Auto Rename Tag
+Prettier - Code formatter
+ReSharper
+Code Spell Checker
+HTML CSS Support
+Tailwind CSS IntelliSense
     
 # docs in asp.net from claude
 
