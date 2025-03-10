@@ -23,3 +23,12 @@ Public Class Form1
         bgMusic.controls.stop() ' Stop music when form closes
     End Sub
 End Class
+
+//
+
+Public Class Form1
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        WebBrowser1.Navigate("https://readme-typing-svg.demolab.com?font=Google+Poppins&weight=900&size=30&pause=8012&color=F7F7F1&random=false&width=435&lines=I'm+John+Michael+Echemani")
+    End Sub
+End Class
+
